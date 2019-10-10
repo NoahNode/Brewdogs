@@ -1,23 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
+
+  let [response, setResponse] = useState({})
+
+  useEffect(() => {
+    fetch('https://api.punkapi.com/v2/beers')
+      .then(res => res.json())
+      .then((data) => {
+        setResponse(data)
+        console.log(data)
+      })
+  }, [])
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+          {response[0] ? response[0].name : ''}
+        </div>
+        <div>
+          {response[0] ? response[0].food_pairing.map((food) => {
+            return <li key={food}>{food}</li>
+          }) : null}
+        </div>
       </header>
     </div>
   );
