@@ -6,7 +6,7 @@ function App() {
   let [response, setResponse] = useState({})
 
   useEffect(() => {
-    fetch('https://api.punkapi.com/v2/beers')
+    fetch('https://api.punkapi.com/v2/beers?per_page=80')
       .then(res => res.json())
       .then((data) => {
         setResponse(data)
@@ -20,9 +20,10 @@ function App() {
         <div>
           {response[0] ? response[0].name : ''}
         </div>
+        <p>Goes well with </p>
         <div>
-          {response[0] ? response[0].food_pairing.map((food) => {
-            return <li key={food}>{food}</li>
+          {response[0] ? response[0].food_pairing.map((food, index) => {
+            return <li key={index}>{food}</li>
           }) : null}
         </div>
       </header>
