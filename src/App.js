@@ -33,12 +33,18 @@ function App() {
       <header className="App-header">
         <img src={logo} alt='logo'></img>
         <h1>Brewdog</h1>
-        <h5>This app will give you a random beer from brewdogs collection</h5>
+        <h5>This app will give you a random beer from brewdogs collection {'\u{1F37A}'}</h5>
         <Button variant="contained" color="primary" className={classes.button}
           onClick={getRandomBeer}>
-          Beer me up!
+          Beer me up!{'\u{1F603}'}
         </Button>
         <div>{beer.name}</div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <a className='Brewdog-site-link' href="https://www.brewdog.com"
+          target="_blank" rel="noopener noreferrer">The official brewdog website</a>
       </header>
     </div>
   );
