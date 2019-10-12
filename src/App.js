@@ -1,31 +1,44 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import logo from './brewdog-logo.png'
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 
 function App() {
 
-  let [response, setResponse] = useState({})
+  let [beer, setBeer] = useState({})
 
-  useEffect(() => {
-    fetch('https://api.punkapi.com/v2/beers?per_page=80')
+  const getRandomBeer = () => {
+    fetch('https://api.punkapi.com/v2/beers/random')
       .then(res => res.json())
       .then((data) => {
-        setResponse(data)
+        setBeer(data[0])
         console.log(data)
       })
-  }, [])
+  }
+
+
+  const classes = makeStyles(theme => ({
+    button: {
+      margin: theme.spacing(1),
+    },
+    input: {
+      display: 'none',
+    },
+  }))();
 
   return (
     <div className="App">
       <header className="App-header">
-        <div>
-          {response[0] ? response[0].name : ''}
-        </div>
-        <p>Goes well with </p>
-        <div>
-          {response[0] ? response[0].food_pairing.map((food, index) => {
-            return <li key={index}>{food}</li>
-          }) : null}
-        </div>
+        <img src={logo} alt='logo'></img>
+        <h1>Brewdog</h1>
+        <h5>This app will give you a random beer from brewdogs collection</h5>
+        <Button variant="contained" color="primary" className={classes.button}
+          onClick={getRandomBeer}>
+          Beer me up!
+        </Button>
+        <div>{beer.name}</div>
       </header>
     </div>
   );
